@@ -1,12 +1,49 @@
+
+
+
 <h1>Search Spotify</h1>
 <!--TODO: bind input's model to searchString-->
-<input>
+<input id="inputText" type="text">
+
+
 <!--TODO: bind select's model to searchCategory-->
-<select>
+<label for="category">Choose A Category</label>
+<select name="category" id="category">
+	<option value="Artist">Artist</option>
+	<option value="Album">Album</option>
+	<option value="Track">Track</option>
+
 	<!--TODO: loop over searchCategories to create dropdown options-->
 	<!--populate body and text value https://www.w3schools.com/tags/att_option_selected.asp-->
 </select>
+
+<!-- <script>
+	document.write("<h2>Table of Fibonacci Numbers</h2>");
+	document.addEventListener("DOMContentLoaded", function () {
+		
+	});
+	window.addEventListener("DOMContentLoaded", function() {
+        // do stuff
+		console.log("EAT YOUR VEGETABLES");
+    }, false);
+</script> -->
+
+<!-- <script>
+	$(function ()
+	{
+		console.log("HEY");
+	console.log(searchCategories.length);
+	for (var d = 0; d < searchCategories.length; d++)
+	{
+		var option = "<option value='" + searchCategories[d] + "''>" + searchCategories[d] + "</option>";
+		document.write(option);
+		console.log(searchCategories[d]);
+	}
+	});
+</script> -->
+
+
 <!--TODO: Call search function when the button is clicked-->
-<button class="btn btn-light">Search</button>
+<button class="btn btn-light" (click)="search()">Search</button>
 <!--TODO: Display a carousel component if searching for an artist or album. Bind carousel's resources and give it a static carouselId.-->
 <!--TODO: Display a track-list component if searching for a track. Bind track-list's tracks.-->
