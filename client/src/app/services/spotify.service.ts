@@ -16,11 +16,8 @@ export class SpotifyService {
   constructor(private http:HttpClient) { }
 
   private sendRequestToExpress(endpoint:string):Promise<any> {
-    console.log("0");
     var link = this.http.get(this.expressBaseUrl + endpoint).toPromise();
-    console.log("1");
     console.log(link);
-    console.log("2");
     return link;
     // Need to get value/data from Promise
 
@@ -43,18 +40,62 @@ export class SpotifyService {
     //Make sure you're encoding the resource with encodeURIComponent().
     //Depending on the category (artist, track, album), return an array of that type of data.
     //JavaScript's "map" function might be useful for this, but there are other ways of building the array.
-    
+    //console.log(category); //Prints "Artist" or "Album" or "Track"
+    if (category == "Artist"){
+      // promise
+      
+      var artistURI = encodeURIComponent(resource);
+      console.log("artistURI: " + artistURI);
+      // Creates artist promise
+      var artists = this.getArtist(artistURI);
+      //trying to get resource data
+      
+      //console.log("Artist: " + artists);
+      //ResourceData[] =[artists];
+      //return artists;
+
+      fetch("http://localhost:8888" + "/artist/" + artistURI).then(function(response) {
+        var dataPromise = response.json();
+        console.log("the data1: " + dataPromise);
+        var json_file = new ArtistData(dataPromise);
+        console.log("1");
+        console.log("json: " + json_file.category);
+        return new ArtistData(dataPromise);
+      })
+      .then(function(data){
+        console.log("the data2: " + data);
+      }); 
+
+    }
+    else if (category == "Album")
+    {
+
+    }
+    else
+    {
+      
+    }
     return null;
   }
 
   getArtist(artistId:string):Promise<ArtistData> {
     //TODO: use the artist endpoint to make a request to express.
     //Again, you may need to encode the artistId.
-    return null;
+
+    // fixme: link
+    return this.sendRequestToExpress('/artist/' + artistId).then((data) =>{
+      console.log("data: " + data);
+      return new ArtistData(data);
+    });
+    
+
+
+    //return null;
   }
 
   getRelatedArtists(artistId:string):Promise<ArtistData[]> {
     //TODO: use the related artist endpoint to make a request to express and return an array of artist data.
+    
    return null;
   }
 
@@ -70,7 +111,10 @@ export class SpotifyService {
 
   getAlbum(albumId:string):Promise<AlbumData> {
     //TODO: use the album endpoint to make a request to express.
-    return null;
+    return this.sendRequestToExpress('/album/:id').then((data) =>{
+      return new AlbumData(data);
+    });
+    //return null;
   }
 
   getTracksForAlbum(albumId:string):Promise<TrackData[]> {
@@ -80,7 +124,10 @@ export class SpotifyService {
 
   getTrack(trackId:string):Promise<TrackData> {
     //TODO: use the track endpoint to make a request to express.
-    return null;
+    return this.sendRequestToExpress('/track/:id').then((data) =>{
+      return new TrackData(data);
+    });
+    //return null;
   }
 
   getAudioFeaturesForTrack(trackId:string):Promise<TrackFeature[]> {
