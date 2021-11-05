@@ -1,17 +1,30 @@
-<!--TODO: bind href to the appropriate local URL for the album/artist/song.-->
-<div *ngFor="let res of resource">
-	<h1><a target="_blank" [href]="res.url">{{ res.name }}</a></h1>
-	<a>
-	<!--TODO bind src with the album/artist/song image URRL-->
-		<img class="d-block w-100" src={{res.imageURL}}/> <!-- {{resourceObject}}.imageURL -->
-	<!--<img class="d-block w-100"> -->
-	<div class="carousel-caption d-none d-md-block">
+
+	<!--TODO bind src with the album/artist/song image URL-->
+		<a>
+	    <img class="d-block w-100"> 
+		<div class="carousel-caption d-none d-md-block">-->
 		<!--TODO: populate h5 with the album/artist/song name-->
-		<h5>{{ res.name }}</h5>
+			<h5>Bob's Burgers</h5>
+	</div>
+	</a>
+
+
+
+
+<!--TODO: bind href to the appropriate local URL for the album/artist/song.-->
+<!--<div *ngFor="let res of resource">
+	<h1><a target="_blank" [href]="res.url">{{ res.name }}</a></h1>
+	<a>-->
+	<!--TODO bind src with the album/artist/song image URRL-->
+		<!--<img class="d-block w-100" src={{res.imageURL}}/>--> <!-- {{resourceObject}}.imageURL -->
+	<!--<img class="d-block w-100"> -->
+	<!--<div class="carousel-caption d-none d-md-block">-->
+		<!--TODO: populate h5 with the album/artist/song name-->
+		<!--<h5>{{ res.name }}</h5>
 	</div>
 	</a>
 </div>
-
+-->
 
 
 

@@ -30,12 +30,17 @@ export class SearchComponent implements OnInit {
     this.searchString = (<HTMLInputElement>document.getElementById('inputText')).value;
     //console.log("word: " + this.searchString);
     this.searchCategory = (<HTMLInputElement>document.getElementById('category')).value;
-    //console.log("category" + this.searchCategory);
-    this.spotifyService.searchFor(this.searchCategory, this.searchString);
+    console.log("category" + this.searchCategory);
+    this.spotifyService.searchFor(this.searchCategory, this.searchString).then((data) => {
+      this.resources = data;
+    });
+    //console.log("this.resources: " + this.resources);
   }
 
-  displayCarousel() {
-    console.log("this is the displayCarousel function");
+  displayCategory() {
+    console.log("hey");
+    console.log("search category: " + this.searchCategory);
+    console.log('hey2');
   }
 
 }

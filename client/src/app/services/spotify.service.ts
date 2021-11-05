@@ -42,31 +42,15 @@ export class SpotifyService {
     //Make sure you're encoding the resource with encodeURIComponent().
     //Depending on the category (artist, track, album), return an array of that type of data.
     //JavaScript's "map" function might be useful for this, but there are other ways of building the array.
-    
+    //var arrayName:ResourceData[] = new Array();
     //console.log(category); //Prints "Artist" or "Album" or "Track"
     if (category == "artist"){
       console.log("PLEASE BOB");
-      /*
-      // Console Checking
-      console.log("artistURI: " + artistURI);
-      console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + artistURI);
-      console.log("request object: " + this.sendRequestToExpress('/search/' + 'artist' + '/' + artistURI));
-      
-      var bobDict = 
-        {"external_urls":{"spotify":"https://open.spotify.com/artist/2QsynagSdAqZj3U9HgDzjD"},
-        "followers":{"href":null,"total":10042224},"genres":["reggae","roots reggae"],
-        "href":"https://api.spotify.com/v1/artists/2QsynagSdAqZj3U9HgDzjD",
-        "id":"2QsynagSdAqZj3U9HgDzjD",
-        "images":[{"height":858,"url":"https://i.scdn.co/image/b5aae2067db80f694a980e596e7f49618c1206c9","width":1000},
-        {"height":549,"url":"https://i.scdn.co/image/4cd57e5e12ea2c24644c40886d65a9b22eca9802","width":640},
-        {"height":172,"url":"https://i.scdn.co/image/02fd758d9805ef44d1caafc35ff17a47f9dff098","width":200},
-        {"height":55,"url":"https://i.scdn.co/image/357fe6ef3655b1b33855e33546e3c174a38a1a36","width":64}],
-        "name":"Bob Marley & The Wailers","popularity":81,"type":"artist","uri":"spotify:artist:2QsynagSdAqZj3U9HgDzjD"};
-      */
 
       // ENCODES SEARCH STRING
       var artistURI = encodeURIComponent(resource);
-      this.sendRequestToExpress('/search/' + category + '/' + artistURI).then((data) => {
+      var artistDataArray = [];
+      return this.sendRequestToExpress('/search/' + category + '/' + artistURI).then((data) => {
         // TURNS PROMISE DATA into JSON STR then JSON DICT
         const jsonStr = JSON.stringify(data);
         const jsonDict = JSON.parse(jsonStr);
@@ -74,20 +58,26 @@ export class SpotifyService {
         const jsonArray = jsonDict["artists"]["items"];
 
         // ADDS NEW RESOURCE DATA ELEM INTO THE ARAY
-        var artistDataArray = [];
+        
         jsonArray.forEach(element => artistDataArray.push(new ArtistData(element)));
         //console.log(artistDataArray);
+        console.log("1");
+        //artistDataArray.forEach(element => console.log(element.name));
         artistDataArray.forEach(element => console.log(element.name));
+        console.log("2");
+        console.log("array type: " + artistDataArray)
         return artistDataArray;
       });
-          
+      //console.log("new array arrayName);
+      //return "THIS IS CATEGORY ARTIST";
+      //return arrayName;
     }
     else if (category == "album")
     {
       
       // ENCODES SEARCH STRING
       var albumURI = encodeURIComponent(resource);
-      this.sendRequestToExpress('/search/' + category + '/' + albumURI).then((data) => {
+      return this.sendRequestToExpress('/search/' + category + '/' + albumURI).then((data) => {
         // TURNS PROMISE DATA into JSON STR then JSON DICT
         const jsonStr = JSON.stringify(data);
         const jsonDict = JSON.parse(jsonStr);
@@ -104,12 +94,12 @@ export class SpotifyService {
       
     }
     
-    else if (category == "track")
+    else //if (category == "track")
     {
       // ENCODES SEARCH STRING
       var trackURI = encodeURIComponent(resource);
       
-      this.sendRequestToExpress('/search/' + category + '/' + trackURI).then((data) => {
+      return this.sendRequestToExpress('/search/' + category + '/' + trackURI).then((data) => {
         // TURNS PROMISE DATA into JSON STR then JSON DICT
         const jsonStr = JSON.stringify(data);
         const jsonDict = JSON.parse(jsonStr);
@@ -125,8 +115,8 @@ export class SpotifyService {
       });
       
     }
-
     return null;
+    //return null;
     
   }
 

@@ -5,7 +5,6 @@
 <!--TODO: bind input's model to searchString-->
 <input id="inputText" type="text">
 
-
 <!--TODO: bind select's model to searchCategory-->
 <label for="category">Choose A Category</label>
 <select name="category" id="category">
@@ -43,15 +42,29 @@
 </script> -->
 
 
+
 <!--TODO: Call search function when the button is clicked-->
 <!---<button class="btn btn-light" (click)="search()">Search</button>-->
-<button class="btn btn-light" (click)="search();displayCarousel()">Search</button>
+<button class="btn btn-light" (click)="search();displayCategory();">Search</button>
 <!--TODO: Display a carousel component if searching for an artist or album. Bind carousel's resources and give it a static carouselId.-->
+<p> hi everyone its me </p>
+
+
+ <app-carousel *ngIf="(searchCategory == 'artist' || searchCategory == 'album') && resources" [resources] = resources carouselId="carouselName"></app-carousel>
+
+<!-- <app-carousel *ngIf="(searchCategory == 'artist' || searchCategory == 'album') && resources" [resources] = resources carouselId="carouselName"></app-carousel> -->
+
+<p> there should be a carousel above this </p>
+
+<!--
 <script>
 	console.log("Before carousel");
 	$(app-carousel-carddocument).ready(function(){
-		$("#albumCarousel").carousel();
+		$("#carouselName").carousel();
 	});
 	console.log("carousel is done");
 </script>
+-->
+
+
 <!--TODO: Display a track-list component if searching for a track. Bind track-list's tracks.-->
