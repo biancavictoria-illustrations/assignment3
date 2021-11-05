@@ -31,6 +31,7 @@ export class SpotifyService {
   aboutMe():Promise<ProfileData> {
     //This line is sending a request to express, which returns a promise with some data. We're then parsing the data 
     return this.sendRequestToExpress('/me').then((data) => {
+      console.log("About Data: " + data);
       return new ProfileData(data);
     });
   }
@@ -40,40 +41,46 @@ export class SpotifyService {
     //Make sure you're encoding the resource with encodeURIComponent().
     //Depending on the category (artist, track, album), return an array of that type of data.
     //JavaScript's "map" function might be useful for this, but there are other ways of building the array.
+    
     //console.log(category); //Prints "Artist" or "Album" or "Track"
-    if (category == "Artist"){
-      // promise
-      
+    if (category == "artist"){
       var artistURI = encodeURIComponent(resource);
+
+      // Console Checking
       console.log("artistURI: " + artistURI);
-      // Creates artist promise
-      var artists = this.getArtist(artistURI);
-      //trying to get resource data
+      console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + artistURI);
+      console.log("request object: " + this.sendRequestToExpress('/search/' + 'artist' + '/' + artistURI));
       
-      //console.log("Artist: " + artists);
-      //ResourceData[] =[artists];
-      //return artists;
 
-      fetch("http://localhost:8888" + "/artist/" + artistURI).then(function(response) {
-        var dataPromise = response.json();
-        console.log("the data1: " + dataPromise);
-        var json_file = new ArtistData(dataPromise);
-        console.log("1");
-        console.log("json: " + json_file.category);
-        return new ArtistData(dataPromise);
-      })
-      .then(function(data){
-        console.log("the data2: " + data);
-      }); 
+      // create empty array
+      /*
+      TRYING TO EXTRACT RESOURCE DATA
+      const artistArray = [];
+      var promiseData = this.sendRequestToExpress('/search/' + category + '/' + artistURI).then(
+        (data) => {
+          console.log("Promise Data: " + data)});   // this is an object in the promise
+      */
 
+      // This will return the json link
+      // but I don't think this is an actual array though
+      return this.sendRequestToExpress('/search/' + category + '/' + artistURI).then(result => result.data);
     }
-    else if (category == "Album")
+    else if (category == "album")
     {
+      var albumURI = encodeURIComponent(resource);
+      // console - ing
+      console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + albumURI);
 
+      return this.sendRequestToExpress('/search/' + category + '/' + albumURI)
     }
-    else
+    else if (category == "track")
     {
-      
+      var trackURI = encodeURIComponent(resource);
+      // console - ing
+      console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + trackURI);
+      return this.sendRequestToExpress('/search/' + category + '/' + trackURI)
+
+
     }
     return null;
   }
@@ -82,9 +89,14 @@ export class SpotifyService {
     //TODO: use the artist endpoint to make a request to express.
     //Again, you may need to encode the artistId.
 
-    // fixme: link
-    return this.sendRequestToExpress('/artist/' + artistId).then((data) =>{
-      console.log("data: " + data);
+    // Basically, our link is incorrect
+    // Which is why we can't get any data
+    // localhost:8888/artist/adele is not a valid link
+
+    //i added search
+    return this.sendRequestToExpress('/artist/:' + artistId).then((data) =>{
+      // The following code doesn't run:
+      console.log("Artist Data: " + data);
       return new ArtistData(data);
     });
     
