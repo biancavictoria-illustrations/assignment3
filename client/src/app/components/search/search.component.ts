@@ -31,7 +31,9 @@ export class SearchComponent implements OnInit {
     //console.log("word: " + this.searchString);
     this.searchCategory = (<HTMLInputElement>document.getElementById('category')).value;
     //console.log("category" + this.searchCategory);
+    console.log("pepehands");
     this.spotifyService.searchFor(this.searchCategory, this.searchString);
+    console.log("OH");
   }
 
 }

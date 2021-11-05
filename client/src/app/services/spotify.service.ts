@@ -45,61 +45,89 @@ export class SpotifyService {
     
     //console.log(category); //Prints "Artist" or "Album" or "Track"
     if (category == "artist"){
-      var artistURI = encodeURIComponent(resource);
-
+      console.log("PLEASE BOB");
+      /*
       // Console Checking
       console.log("artistURI: " + artistURI);
       console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + artistURI);
       console.log("request object: " + this.sendRequestToExpress('/search/' + 'artist' + '/' + artistURI));
-      var artPromise = this.sendRequestToExpress('/search/' + 'artist' + '/' + artistURI).then(function(response) {
-        //var dataPromise = response.json();
-        //return dataPromise;
-        //})
-        //.then(function(data) {
-          //console.log("gimme somethin baby: " + data);
-          let myDict = {response};
-          console.log(myDict);
-          console.log("please: " + myDict["artists"]);
-          console.log("response: " + new ArtistData(myDict));
-        });
-
-        
-
-      //var dataPromise = artPromise.json();
       
-
-      
-      // create empty array
-      /*
-      TRYING TO EXTRACT RESOURCE DATA
-      const artistArray = [];
-      var promiseData = this.sendRequestToExpress('/search/' + category + '/' + artistURI).then(
-        (data) => {
-          console.log("Promise Data: " + data)});   // this is an object in the promise
+      var bobDict = 
+        {"external_urls":{"spotify":"https://open.spotify.com/artist/2QsynagSdAqZj3U9HgDzjD"},
+        "followers":{"href":null,"total":10042224},"genres":["reggae","roots reggae"],
+        "href":"https://api.spotify.com/v1/artists/2QsynagSdAqZj3U9HgDzjD",
+        "id":"2QsynagSdAqZj3U9HgDzjD",
+        "images":[{"height":858,"url":"https://i.scdn.co/image/b5aae2067db80f694a980e596e7f49618c1206c9","width":1000},
+        {"height":549,"url":"https://i.scdn.co/image/4cd57e5e12ea2c24644c40886d65a9b22eca9802","width":640},
+        {"height":172,"url":"https://i.scdn.co/image/02fd758d9805ef44d1caafc35ff17a47f9dff098","width":200},
+        {"height":55,"url":"https://i.scdn.co/image/357fe6ef3655b1b33855e33546e3c174a38a1a36","width":64}],
+        "name":"Bob Marley & The Wailers","popularity":81,"type":"artist","uri":"spotify:artist:2QsynagSdAqZj3U9HgDzjD"};
       */
 
-      // This will return the json link
-      // but I don't think this is an actual array though
-      return this.sendRequestToExpress('/search/' + category + '/' + artistURI);
+      // ENCODES SEARCH STRING
+      var artistURI = encodeURIComponent(resource);
+      this.sendRequestToExpress('/search/' + category + '/' + artistURI).then((data) => {
+        // TURNS PROMISE DATA into JSON STR then JSON DICT
+        const jsonStr = JSON.stringify(data);
+        const jsonDict = JSON.parse(jsonStr);
+        //console.log("Jason?! " + jsonDict["artists"]["items"][0]);
+        const jsonArray = jsonDict["artists"]["items"];
+
+        // ADDS NEW RESOURCE DATA ELEM INTO THE ARAY
+        var artistDataArray = [];
+        jsonArray.forEach(element => artistDataArray.push(new ArtistData(element)));
+        //console.log(artistDataArray);
+        artistDataArray.forEach(element => console.log(element.name));
+        return artistDataArray;
+      });
+          
     }
     else if (category == "album")
     {
+      
+      // ENCODES SEARCH STRING
       var albumURI = encodeURIComponent(resource);
-      // console - ing
-      console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + albumURI);
+      this.sendRequestToExpress('/search/' + category + '/' + albumURI).then((data) => {
+        // TURNS PROMISE DATA into JSON STR then JSON DICT
+        const jsonStr = JSON.stringify(data);
+        const jsonDict = JSON.parse(jsonStr);
+        const jsonArray = jsonDict["albums"]["items"];
 
-      return this.sendRequestToExpress('/search/' + category + '/' + albumURI)
+        // ADDS NEW RESOURCE DATA ELEM INTO THE ARAY
+        var albumDataArray = [];
+        jsonArray.forEach(element => albumDataArray.push(new AlbumData(element)));
+        //console.log(artistDataArray);
+        albumDataArray.forEach(element => console.log(element.name));
+        return albumDataArray;
+      });
+      //return null;
+      
     }
+    
     else if (category == "track")
     {
+      // ENCODES SEARCH STRING
       var trackURI = encodeURIComponent(resource);
-      // console - ing
-      console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + trackURI);
-      return this.sendRequestToExpress('/search/' + category + '/' + trackURI);
+      
+      this.sendRequestToExpress('/search/' + category + '/' + trackURI).then((data) => {
+        // TURNS PROMISE DATA into JSON STR then JSON DICT
+        const jsonStr = JSON.stringify(data);
+        const jsonDict = JSON.parse(jsonStr);
+        const jsonArray = jsonDict["tracks"]["items"];
 
+        // ADDS NEW RESOURCE DATA ELEM INTO THE ARAY
+        var trackDataArray = [];
+        jsonArray.forEach(element => trackDataArray.push(new TrackData(element)));
+        //console.log(artistDataArray);
+        trackDataArray.forEach(element => console.log(element.duration_ms));
+        return trackDataArray;
 
+      });
+      
     }
+
     return null;
+    
   }
 
   getArtist(artistId:string):Promise<ArtistData> {

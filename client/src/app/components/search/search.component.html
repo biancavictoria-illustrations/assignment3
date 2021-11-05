@@ -46,4 +46,9 @@
 <!--TODO: Call search function when the button is clicked-->
 <button class="btn btn-light" (click)="search()">Search</button>
 <!--TODO: Display a carousel component if searching for an artist or album. Bind carousel's resources and give it a static carouselId.-->
+<script>
+	$(document).ready(function(){
+		$("#albumCarousel").carousel();
+	});
+</script>
 <!--TODO: Display a track-list component if searching for a track. Bind track-list's tracks.-->
