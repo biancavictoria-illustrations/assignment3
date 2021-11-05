@@ -15,4 +15,5 @@ export class CarouselComponent implements OnInit {
   ngOnInit() {
   }
 
+  // loop through resources, make carousel card and then put it into carousel
 }

@@ -1,9 +1,23 @@
 <!--TODO: bind href to the appropriate local URL for the album/artist/song.-->
-<a>
-<!--TODO bind src with the album/artist/song image URRL-->
-<img class="d-block w-100">
-<div class="carousel-caption d-none d-md-block">
-	<!--TODO: populate h5 with the album/artist/song name-->
-	<h5>???</h5>
+<div *ngFor="let res of resource">
+	<h1><a target="_blank" [href]="res.url">{{ res.name }}</a></h1>
+	<a>
+	<!--TODO bind src with the album/artist/song image URRL-->
+		<img class="d-block w-100" src={{res.imageURL}}/> <!-- {{resourceObject}}.imageURL -->
+	<!--<img class="d-block w-100"> -->
+	<div class="carousel-caption d-none d-md-block">
+		<!--TODO: populate h5 with the album/artist/song name-->
+		<h5>{{ res.name }}</h5>
+	</div>
+	</a>
 </div>
-</a>
+
+
+
+
+<!--note from Careline: edit the carousel-card component to link to the local URL for browsing the specific
+    artist or album let item of Promise<ResourceData>;index as i>;
+    URL paths should be: artist/:id and album/:id -->
+    
+    <!--from zulip: To link to the artist page you should use a relative
+      link that contains the resource category and the resource id.-->
