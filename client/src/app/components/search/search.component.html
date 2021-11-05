@@ -44,11 +44,12 @@
 
 
 <!--TODO: Call search function when the button is clicked-->
-<button class="btn btn-light" (click)="search()">Search</button>
+<!---<button class="btn btn-light" (click)="search()">Search</button>-->
+<button class="btn btn-light" (click)="search();displayCarousel()">Search</button>
 <!--TODO: Display a carousel component if searching for an artist or album. Bind carousel's resources and give it a static carouselId.-->
 <script>
 	console.log("Before carousel");
-	$(document).ready(function(){
+	$(app-carousel-carddocument).ready(function(){
 		$("#albumCarousel").carousel();
 	});
 	console.log("carousel is done");

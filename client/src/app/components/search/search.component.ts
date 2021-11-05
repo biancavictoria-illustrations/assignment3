@@ -34,4 +34,8 @@ export class SearchComponent implements OnInit {
     this.spotifyService.searchFor(this.searchCategory, this.searchString);
   }
 
+  displayCarousel() {
+    console.log("this is the displayCarousel function");
+  }
+
 }
