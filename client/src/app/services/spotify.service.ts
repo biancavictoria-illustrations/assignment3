@@ -22,6 +22,7 @@ export class SpotifyService {
     // Need to get value/data from Promise
 
     //return this.http.get(this.expressBaseUrl + endpoint).toPromise();
+
     //TODO: use the injected http Service to make a get request to the Express endpoint and return the response.
     //the http service works similarly to fetch(). It may be useful to call .toPromise() on any responses.
     //update the return to instead return a Promise with the data from the Express server
@@ -50,8 +51,24 @@ export class SpotifyService {
       console.log("artistURI: " + artistURI);
       console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + artistURI);
       console.log("request object: " + this.sendRequestToExpress('/search/' + 'artist' + '/' + artistURI));
+      var artPromise = this.sendRequestToExpress('/search/' + 'artist' + '/' + artistURI).then(function(response) {
+        //var dataPromise = response.json();
+        //return dataPromise;
+        //})
+        //.then(function(data) {
+          //console.log("gimme somethin baby: " + data);
+          let myDict = {response};
+          console.log(myDict);
+          console.log("please: " + myDict["artists"]);
+          console.log("response: " + new ArtistData(myDict));
+        });
+
+        
+
+      //var dataPromise = artPromise.json();
       
 
+      
       // create empty array
       /*
       TRYING TO EXTRACT RESOURCE DATA
@@ -63,7 +80,7 @@ export class SpotifyService {
 
       // This will return the json link
       // but I don't think this is an actual array though
-      return this.sendRequestToExpress('/search/' + category + '/' + artistURI).then(result => result.data);
+      return this.sendRequestToExpress('/search/' + category + '/' + artistURI);
     }
     else if (category == "album")
     {
@@ -78,7 +95,7 @@ export class SpotifyService {
       var trackURI = encodeURIComponent(resource);
       // console - ing
       console.log("link: " + this.expressBaseUrl + '/search/' + 'artist' + '/' + trackURI);
-      return this.sendRequestToExpress('/search/' + category + '/' + trackURI)
+      return this.sendRequestToExpress('/search/' + category + '/' + trackURI);
 
 
     }
