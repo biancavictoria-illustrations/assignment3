@@ -212,13 +212,13 @@ export class SpotifyService {
     return this.sendRequestToExpress('/album-tracks/' + albumId).then((data) => {
         const jsonStr = JSON.stringify(data);
         const jsonDict = JSON.parse(jsonStr);
-        const jsonArray = jsonDict["items"]["artists"];
+        const jsonArray = jsonDict["items"];
 
         // ADDS NEW RESOURCE DATA ELEM INTO THE ARAY
         var trackDataArray = [];
         jsonArray.forEach(element => trackDataArray.push(new TrackData(element)));
         //console.log(artistDataArray);
-        //trackDataArray.forEach(element => console.log(element.duration_ms));
+        trackDataArray.forEach(element => console.log("Track Name: " + element.name));
         return trackDataArray;
     });
     //return null;

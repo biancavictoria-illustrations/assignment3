@@ -12,7 +12,7 @@ import { SpotifyService } from '../../services/spotify.service';
 })
 export class ArtistPageComponent implements OnInit {
 	artistId:string;
-	artistTrack:ArtistData;
+	artistObj:ArtistData;
   artist:ArtistData;
 	relatedArtists:ArtistData[];
 	topTracks:TrackData[];
@@ -25,7 +25,7 @@ export class ArtistPageComponent implements OnInit {
     this.artistId = this.route.snapshot.paramMap.get('id');
     
     this.spotifyService.getArtist(this.artistId).then((data) => {
-      this.artistTrack = data;
+      this.artistObj = data;
     });
 
 
@@ -39,9 +39,13 @@ export class ArtistPageComponent implements OnInit {
     
     this.spotifyService.getTopTracksForArtist(this.artistId).then((data) => {
       this.topTracks = data;
+      //console.log("related object: " + this.relatedArtists); //good
+      //console.log("related object 1: " + this.relatedArtists[0].name); //good
     });
 
     this.spotifyService.getAlbumsForArtist(this.artistId).then((data) => {
+      //console.log("topTrack object: " + this.topTracks); //good
+      //console.log("topTrack 1: " + this.topTracks[0].name);//good
       this.albums = data;
     });
 
@@ -56,7 +60,6 @@ export class ArtistPageComponent implements OnInit {
 
     //TODO: Inject the spotifyService and use it to get the artist data, related artists, top tracks for the artist, and the artist's albums
      
-    //console.log("Art Object 2: "+ this.artist.name);
 
     this.spotifyService.getRelatedArtists(this.artistId).then((data) => {
       this.relatedArtists = data;
