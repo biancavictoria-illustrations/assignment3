@@ -37,10 +37,6 @@ export class SearchComponent implements OnInit {
     //console.log("this.resources: " + this.resources);
   }
 
-  displayCategory() {
-    console.log("hey");
-    console.log("search category: " + this.searchCategory);
-    console.log('hey2');
-  }
+  
 
 }

@@ -45,26 +45,11 @@
 
 <!--TODO: Call search function when the button is clicked-->
 <!---<button class="btn btn-light" (click)="search()">Search</button>-->
-<button class="btn btn-light" (click)="search();displayCategory();">Search</button>
+<button class="btn btn-light" (click)="search();">Search</button>
 <!--TODO: Display a carousel component if searching for an artist or album. Bind carousel's resources and give it a static carouselId.-->
-<p> hi everyone its me </p>
-
 
  <app-carousel *ngIf="(searchCategory == 'artist' || searchCategory == 'album') && resources" [resources] = resources carouselId="carouselName"></app-carousel>
 
-<!-- <app-carousel *ngIf="(searchCategory == 'artist' || searchCategory == 'album') && resources" [resources] = resources carouselId="carouselName"></app-carousel> -->
-
-<p> there should be a carousel above this </p>
-
-<!--
-<script>
-	console.log("Before carousel");
-	$(app-carousel-carddocument).ready(function(){
-		$("#carouselName").carousel();
-	});
-	console.log("carousel is done");
-</script>
--->
-
-
 <!--TODO: Display a track-list component if searching for a track. Bind track-list's tracks.-->
+ <app-track-list *ngIf="searchCategory == 'track' && resources" [resources]=resources></app-track-list> 
+<!-- <app-carousel *ngIf="searchCategory == 'track' && resources" [resources] = resources carouselId="carouselName"></app-carousel> -->

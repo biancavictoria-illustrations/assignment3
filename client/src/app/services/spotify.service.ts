@@ -63,7 +63,7 @@ export class SpotifyService {
         //console.log(artistDataArray);
         console.log("1");
         //artistDataArray.forEach(element => console.log(element.name));
-        artistDataArray.forEach(element => console.log(element.name));
+        artistDataArray.forEach(element => console.log(element.imageURL));
         console.log("2");
         console.log("array type: " + artistDataArray)
         return artistDataArray;

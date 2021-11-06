@@ -12,6 +12,7 @@
 	</thead>
 	<tbody>
 		<!--TODO: Use *ngFor to loop over tracks-->
+		<app-carousel-card *ngFor="let resource of resources;let first=first" class="carousel-item" [ngClass]="{'active': first}" [resource]=resource></app-carousel-card>  
 		<tr>
 			<!--TODO: Populate with row index (start with 1!)-->
 			<td>???</td>

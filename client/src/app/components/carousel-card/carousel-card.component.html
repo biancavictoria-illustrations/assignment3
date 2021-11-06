@@ -1,13 +1,12 @@
-
-	<!--TODO bind src with the album/artist/song image URL-->
-		<a>
-	    <img class="d-block w-100"> 
-		<div class="carousel-caption d-none d-md-block">-->
-		<!--TODO: populate h5 with the album/artist/song name-->
-			<h5>Bob's Burgers</h5>
-	</div>
-	</a>
-
+<!--TODO: bind href to the appropriate local URL for the album/artist/song.-->
+<!--TODO bind src with the album/artist/song image URL-->
+<a>
+<img class="d-block w-100" src="{{ resource.imageURL }}"/>
+<div class="carousel-caption d-none d-md-block">
+<!--TODO: populate h5 with the album/artist/song name-->
+		<h5>{{ resource.name }}</h5>
+</div>
+</a>
 
 
 
